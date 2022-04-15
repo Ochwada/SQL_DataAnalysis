@@ -56,3 +56,19 @@ select distinct hire_date from employees;
 
 ## Aggregate function
 -- They are applied on multiple rows of a single column of a table return an output of single value. 
+-- COUNT; SUM; MIN, MAX, AVG
+
+-- COUNT --> nO WHITE SPACE
+use employees;
+
+select count(emp_no) from employees; -- How many employees 
+
+select count(distinct first_name) from employees; -- How many different names are there in the employees table
+
+select * from salaries;
+
+select count(*) from salaries where salary >= 100000;-- annual contracts with a value higher than or equal to $100,000 have been registered in the salaries table
+
+select * from dept_manager;
+
+select count(emp_no) from dept_manager;
