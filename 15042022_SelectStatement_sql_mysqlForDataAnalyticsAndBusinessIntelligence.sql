@@ -69,6 +69,18 @@ select * from salaries;
 
 select count(*) from salaries where salary >= 100000;-- annual contracts with a value higher than or equal to $100,000 have been registered in the salaries table
 
-select * from dept_manager;
+select count(*) from dept_manager; -- Number of managers  in the “employees” database;
 
-select count(emp_no) from dept_manager;
+select *  from employees;
+
+select * from employees order by first_name; -- ORDER BY ASCENDING ORDER
+
+select * from employees order by first_name ASC; -- ORDER BY ASCENDING ORDER
+
+select * from employees order by first_name desc; -- ORDER BY DESCENCING ORDER
+
+select * from employees order by emp_no desc; -- ORDER BY deceing ORDER on employee number
+
+select * from employees order by first_name, last_name ASC; -- ORDER BY ASCENDING ORDER
+
+select * from employees order by hire_date desc;   -- Select all data from the “employees” table, ordering it by “hire date” in descending order.
