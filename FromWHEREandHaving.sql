@@ -103,3 +103,8 @@ emp_no, dept_no, from_date, to_date
 999903, 5, '1997-10-01', '9999-01-01'
 );
 
+CREATE TABLE departments_dupt
+(
+    dept_no CHAR(4) NOT NULL,
+    dept_name VARCHAR(40) NOT NULL   
+);
