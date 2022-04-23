@@ -42,10 +42,64 @@ FROM
 ORDER BY emp_no DESC
 LIMIT 10;
 
-insert into employees 
+INSERT INTO employees 
 (
  emp_no, birth_date, first_name, last_name, gender, hire_date
-) value 
+) VALUE 
 (
 999901,'1988-09-12','Linda','Ochwada','F','2018-05-01'
-)
+);
+-- Select 10 records from the "title" table to get a better idea about its content
+-- Then, in the same table, insert information about employee number 999903. State that he/she is a "Senior Engineer",
+-- who has started working in this position on October 1st 1997. 
+-- At the end, sort. the recorsa from the 'titles' table in decreasing order to check if you successfully inserted the new recoerd.
+SELECT 
+    *
+FROM
+    titles
+LIMIT 10;
+
+--
+
+INSERT INTO employees  -- Employee has to be connected to parent table
+(
+ emp_no, birth_date, first_name, last_name, gender, hire_date
+) VALUE 
+(
+999903,'1968-09-12','Linda','Ochwada','F','1997-08-01'
+);
+
+-- 
+INSERT INTO titles
+(
+emp_no, title, from_date
+) VALUES
+(
+999903, 'Software Engineer', '1997-10-01'
+);
+-- 
+SELECT 
+    *
+FROM
+    titles
+ORDER BY emp_no DESC;
+
+-- %% Insert information about individual with employee number 99903 into the 'dept_emp' table. He/ She is working for the department 
+-- %% number 5 and has started work on october 1st 1997 contract is foe indefinite period of time.
+-- ------------- %% ---- %% --------------- %% ---- %% --------------- %% --
+SELECT 
+    *
+FROM
+    dept_emp
+ORDER BY emp_no DESC
+LIMIT 10;
+
+
+INSERT INTO dept_emp
+(
+emp_no, dept_no, from_date, to_date
+)VALUES
+(
+999903, 5, '1997-10-01', '9999-01-01'
+);
+
