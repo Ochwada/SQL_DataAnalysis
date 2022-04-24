@@ -78,4 +78,55 @@ WHERE emp_no = 999903;
 ROLLBACK;
 
 -- DROP vs TRUNCATE vs DELETE
+-- COUNT  --> sum(), count(), min(), max(),avg()
 
+
+SELECT * FROM salaries ORDER BY salary DESC LIMIT 10;
+
+SELECT COUNT(salary) from salaries;
+
+-- How many employees start dates are in the database
+SELECT * FROM titles LIMIT 50;
+
+SELECT COUNT(DISTINCT from_date) FROM salaries; 
+
+-- How many departments are there in the “employees” database? Use the ‘dept_emp’ table .
+
+SELECT * FROM dept_emp LIMIT 10;
+
+SELECT COUNT(DISTINCT dept_no) FROM dept_emp;
+
+-- SUM()
+ -- How much money does the fir, spend on salaries
+
+ SELECT * FROM salaries LIMIT 10;
+
+ SELECT SUM(salary) FROM salaries; 
+
+-- NOTE: count() return all rowa of the table, NULL values included, applied to both numeric and 
+                 -- non numeric
+--       sum() goes well with only the COUNT() function
+
+-- What is the total amount of money spent on salaries for all contracts starting after the 1st of January 1997?
+
+SELECT * FROM salaries LIMIT 10;
+
+SELECT SUM(salary)
+FROM salaries
+WHERE from_date > '1997-01-01';
+
+-- MAX() and MIN()
+-- which is the maximum amount of salary offered 
+SELECT  MAX(salary) FROM salaries;
+SELECT  MIN(salary) FROM salaries;
+
+-- 1. Which is the lowest employee number in the database?
+SELECT MIN(emp_no) FROM employees;
+
+-- 2. Which is the highest employee number in the database?
+SELECT MAX(emp_no) FROM employees;
+
+-- AVG() 
+-- Avarage annual salary for all employees
+
+SELECT AVG(salary) FROM salaries;
