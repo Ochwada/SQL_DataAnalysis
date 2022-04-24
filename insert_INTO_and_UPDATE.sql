@@ -128,5 +128,80 @@ SELECT MAX(emp_no) FROM employees;
 
 -- AVG() 
 -- Avarage annual salary for all employees
-
 SELECT AVG(salary) FROM salaries;
+
+-- What is the average annual salary paid to employees who started after the 1st of January 1997?
+SELECT AVG(salary) FROM salaries
+WHERE from_date > '1997-01-01';
+
+-- ROUND() --
+--Round the average amount of money spent on salaries for all contracts that started after the
+-- 1st of January 1997 to a precision of cents.
+SELECT ROUND(AVG(salary), 2) FROM salaries
+WHERE from_date > '1997-01-01';
+
+-- COALESCE() - Preamble
+-- IF NULL() and COALESCE() are among the advanced SQL functions in the toolkit of SQL professionals. They are used when null values are
+    -- dispersed in your data table and you would like to substitute the null values with another value.
+
+SELECT * FROM departments_dup
+ORDER BY dept_no ASC;
+
+DELETE FROM departments_dup WHERE dept_no = 'd010';
+
+ALTER TABLE departments_dup
+CHANGE COLUMN dept_name dept_name VARCHAR(40) NULL;
+
+INSERT INTO departments_dup(dept_no)
+VALUES ('d010'), ('d011');
+
+ALTER TABLE employees.departments_dup
+ADD COLUMN dept_manager VARCHAR(255) NULL
+AFTER dept_name;
+
+COMMIT;
+
+-- IFNULL or COALESCE()
+-- IFNULL -> can not contain mre than two parameters
+-- COALESCE -> Allows you to insert N arguments in the parentheses
+
+SELECT dept_no,
+IFNULL(dept_name, 'Department name not provided') as dept_name
+FROM departments_dup;
+
+SELECT dept_no,
+COALESCE(dept_name, 'Department name not provided') as dept_name
+FROM departments_dup;
+
+SELECT dept_no, dept_name,
+       COALESCE(dept_manager, dept_name, 'N/A') as dept_manager
+FROM departments_dup 
+ORDER BY dept_no ASC;
+
+SELECT  dept_no, dept_name,
+    COALESCE('department name not found') as fake_news
+FROM departments_dup;
+
+-- Select the department number and name from the ‘departments_dup’ table and add a third column where you name 
+-- the department number (‘dept_no’) as ‘dept_info’. If ‘dept_no’ does not have a value, use ‘dept_name’.
+
+SELECT dept_no, dept_name,
+    COALESCE(dept_no, dept_name) AS dept_info
+FROM departments_dup
+ORDER BY dept_no ASC;
+
+-- Modify the code obtained from the previous exercise in the following way. Apply the IFNULL() function to the 
+-- values from the first and second column, so that ‘N/A’ is displayed whenever a department number has no value, 
+-- and ‘Department name not provided’ is shown if there is no value for ‘dept_name’.
+
+SELECT 
+    IFNULL(dept_no, 'N/A') AS dept_no, 
+    IFNULL(dept_name, 'Department name not provided') AS dept_name,
+    COALESCE(dept_no, dept_name) AS dept_info
+FROM departments_dup
+ORDER BY dept_no ASC;
+
+
+
+
+
