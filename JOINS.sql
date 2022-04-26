@@ -163,3 +163,25 @@ FROM
     departments_dup d ON m.dept_no = d.dept_no
 WHERE dept_name IS NULL
 ORDER BY m.dept_no;
+
+SELECT
+    e.emp_no,  
+    e.first_name,  
+    e.last_name,  
+    dm.dept_no,  
+    dm.from_date  
+FROM  
+    employees e  
+        LEFT JOIN   
+dept_manager dm ON e.emp_no = dm.emp_no  
+WHERE  
+    e.last_name = 'Markovitch'  
+ORDER BY dm.dept_no DESC, e.emp_no;
+
+SELECT * FROM employees
+    LIMIT 10;
+
+-- RIGHT JOIN
+-- Identical to Left JOINs, with the only difference being that the direction of the 
+-- oparetion is inverted. 
+
