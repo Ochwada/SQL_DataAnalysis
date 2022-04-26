@@ -164,8 +164,7 @@ FROM
 WHERE dept_name IS NULL
 ORDER BY m.dept_no;
 
-SELECT
-    e.emp_no,  
+SELECT e.emp_no,  
     e.first_name,  
     e.last_name,  
     dm.dept_no,  
@@ -184,4 +183,39 @@ SELECT * FROM employees
 -- RIGHT JOIN
 -- Identical to Left JOINs, with the only difference being that the direction of the 
 -- oparetion is inverted. 
+
+SELECT m.dept_no, m.emp_no, m.dept_name
+FROM dept_manager_dup m,
+     departments_dup d
+WHERE m.dept_no = d.dept_no
+ORDER BY m.dept_no DESC;
+
+-- Extract a list containing information about all managers’ employee number, first and last name, 
+-- department number, and hire date. Use the old type of join syntax to obtain the result.
+
+SELECT m.emp_no, e.first_name, e.last_name, m.dept_no, m.dept_no, e.hire_date
+FROM employees e,
+    dept_manager m
+WHERE m.emp_no = e.emp_no
+ORDER BY m.emp_no;
+
+SELECT m.emp_no, e.first_name, e.last_name, m.dept_no, m.dept_no, e.hire_date
+FROM employees e
+JOIN dept_manager m ON e.emp_no = m.emp_no
+ORDER BY m.emp_no;
+
+
+-- JOIN and WHERE
+-- JOIN: used to connect TABLEs
+-- WHERE: Used to set conditins
+
+SELECT e.emp_no, e.first_name, e.last_name, s.salary
+FROM employees e
+    JOIN
+    salaries s ON e.emp_no = s.emp_no
+WHERE s.salary > 145000;
+
+SELECT * FROM  dept_manager LIMIT 10;
+SELECT * FROM  employees LIMIT 10;
+SELECT * FROM  salaries LIMIT 10;
 
