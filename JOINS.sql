@@ -163,30 +163,6 @@ FROM
     departments_dup d ON m.dept_no = d.dept_no
 WHERE dept_name IS NULL
 ORDER BY m.dept_no;
-
-<<<<<<< HEAD
--- CROSS JOIN 
--- Will take the values from a certain table and connect them with all the values from the left
---  tables we want to join 
-
--- INNER JOIN
--- Connets only matching values 
-
--- CROSS JOIN 
--- Connect all values, not just matching
--- Udeful when the tables in a database arent well connected.
-
-
--- CROSS JOIN 
--- All department managers and the department they can be assigned to. 
--- i.e connecting two tables 
-SELECT
-    dm.*, d.*
-FROM
-    dept_manager dm
-     CROSS JOIN
-    departments d
-ORDER BY dm.emp_no, d.dept_no;  
 =======
 SELECT e.emp_no,  
     e.first_name,  
@@ -244,3 +220,118 @@ SELECT * FROM  employees LIMIT 10;
 SELECT * FROM  salaries LIMIT 10;
 
 >>>>>>> fe9cdf0bd5a790ce33fa9e584024d80165699662
+
+<<<<<<< HEAD
+-- CROSS JOIN 
+-- Will take the values from a certain table and connect them with all the values from the left
+--  tables we want to join 
+
+-- INNER JOIN
+-- Connets only matching values 
+
+-- CROSS JOIN 
+-- Connect all values, not just matching
+-- Useful when the tables in a database arent well connected.
+
+
+-- CROSS JOIN 
+-- All department managers and the department they can be assigned to. 
+-- i.e connecting two tables 
+SELECT
+    dm.*, d.*
+FROM
+    dept_manager dm
+     CROSS JOIN
+    departments d
+ORDER BY dm.emp_no, d.dept_no;  
+
+SELECT 
+        dm.*, d.*
+    FROM
+    dept_manager dm
+    JOIN
+    departments d
+ORDER BY dm.emp_no, d.dept_no;
+
+SELECT
+    dm.*, d.*
+FROM
+    dept_manager dm
+     CROSS JOIN
+    departments d
+WHERE 
+    d.dept_no <> dm.dept_no -- department but where the manager is head of.
+ORDER BY dm.emp_no, d.dept_no;  
+
+-- JOIN * ON Clause = CROSS JOIN * WHERE 
+
+--Use a CROSS JOIN to return a list with all possible combinations between managers from 
+--the dept_manager table and department number 9.
+SELECT * FROM dept_manager WHERE dept_no = 'd009' LIMIT 9;
+SELECT * FROM departments  LIMIT 9;
+
+SELECT 
+    dm.*, d.*
+FROM 
+   departments d 
+        CROSS JOIN
+    dept_manager dm 
+WHERE d.dept_no = 'd0009'
+ORDER BY d.dept_no;
+
+-- Return a list with the first 10 employees with all the departments they can be assigned to.
+--Hint: Don’t use LIMIT; use a WHERE clause. #
+SELECT * FROM employees LIMIT 9;
+SELECT * FROM departments  LIMIT 9;
+
+SELECT 
+    e.*, d.*  -- No column displayed 
+FROM
+    employees e
+        CROSS JOIN
+    departments d
+WHERE e.emp_no < 10011
+ORDER BY e.emp_no, d.dept_name;
+
+-- Find the avarage salaries of men and women in the company
+-- Agrregate fuction hence data is grouped by field of interest
+
+SELECT * FROM employees LIMIT 10;
+SELECT * FROM salaries  LIMIT 10;
+
+SELECT 
+    e.gender, AVG(s.salary) AS avarage_salary -- column of displayed
+FROM
+    employees e
+        JOIN 
+    salaries s on e.emp_no = s.emp_no
+GROUP BY gender;
+
+--Know how many women and men are there.
+SELECT
+   gender, COUNT(gender) AS fre_gender
+FROM employees
+GROUP BY gender;
+
+-- JOIN More than Two TABLES in SQL
+SELECT * FROM employees LIMIT 10;
+SELECT * FROM departments LIMIT 10;
+SELECT * FROM dept_manager LIMIT 10;
+
+DESCRIBE departments;
+
+SELECT
+    e.first_name, 
+    e.last_name, 
+    e.hire_date,
+    dm.from_date,
+    d.dept_name
+FROM
+    employees e
+    JOIN
+    dept_manager dm ON e.emp_no = dm.emp_no
+    JOIN 
+    departments d ON dm.dept_no = d.dept_no;
+
+-- Select all managers’ first and last name, hire date, job title, 
+-- start date, and department name.
