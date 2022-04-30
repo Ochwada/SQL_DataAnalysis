@@ -163,3 +163,18 @@ FROM
     departments_dup d ON m.dept_no = d.dept_no
 WHERE dept_name IS NULL
 ORDER BY m.dept_no;
+
+-- CROSS JOIN 
+-- Will take the values from a certain table and connect them with all the values from the left
+--  tables we want to join 
+
+-- INNER JOIN
+-- Connets only matching values 
+
+-- CROSS JOIN 
+-- Connect all values, not just matching
+-- Udeful when the tables in a database arent well connected.
+
+
+-- CROSS JOIN 
+
