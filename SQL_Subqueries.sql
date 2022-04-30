@@ -189,3 +189,33 @@ FROM (
 
 -- SQL Self Join
 -- Applied when a table must join itself (Combining rows OF A TABLE with other rows of same table)
+
+-- From the emp_manager table, extract the record data only of those employees who are managers as well.
+
+SELECT *
+FROM emp_manager em
+ORDER BY em.emp_no;
+
+SELECT em1.*
+FROM emp_manager em1
+    JOIN emp_manager em2 ON em1.emp_no = em2.manager_no;
+
+-- SQL VIEW 
+SELECT *
+FROM dept_emp de
+LIMIT 100;
+
+--Create a view that will extract the average salary of all managers registered in the database. Round 
+-- this value to the nearest cent.
+
+-- If you have worked correctly, after executing the view from the “Schemas” section in Workbench, 
+-- you should obtain the value of 66924.27. 
+
+CREATE OR REPLACE VIEW v_manager_avg_salary AS
+SELECT ROUND(AVG(salary), 2)
+FROM salaries s
+    JOIN dept_manager m ON s.emp_no = m.emp_no;
+
+
+
+
