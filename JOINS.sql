@@ -177,4 +177,12 @@ ORDER BY m.dept_no;
 
 
 -- CROSS JOIN 
-
+-- All department managers and the department they can be assigned to. 
+-- i.e connecting two tables 
+SELECT
+    dm.*, d.*
+FROM
+    dept_manager dm
+     CROSS JOIN
+    departments d
+ORDER BY dm.emp_no, d.dept_no;  
