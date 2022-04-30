@@ -335,3 +335,194 @@ FROM
 
 -- Select all managers’ first and last name, hire date, job title, 
 -- start date, and department name.
+
+-- primary key- employees - emp_no;
+-- primary key - title -- emp_no, title, from_date 
+SELECT 
+    e.first_name,
+    e.last_name,
+    e.hire_date,
+    t.title AS job_title,
+    dm.from_date,
+    d.dept_name
+
+FROM
+    employees e
+    JOIN
+    dept_manager dm ON e.emp_no = dm.emp_no
+    JOIN
+    departments d ON dm.dept_no = d.dept_no
+    JOIN
+    titles t ON e.emp_no =t.emp_no
+WHERE t.title = 'Manager'
+ORDER BY e.emp_no;
+    
+SELECT
+    e.first_name,
+    e.last_name,
+    e.hire_date,
+    t.title AS job_title,
+    m.from_date,
+    d.dept_name
+FROM
+    employees e
+        JOIN
+    dept_manager m ON e.emp_no = m.emp_no
+        JOIN
+    departments d ON m.dept_no = d.dept_no
+        JOIN
+    titles t ON e.emp_no = t.emp_no
+            AND m.from_date = t.from_date
+ORDER BY e.emp_no;
+
+-- EXERCISE
+-- Obtain the names of all the departments, calculate the avarage salary paid to the 
+-- managers in each of them
+
+SELECT
+    d.dept_name, 
+    AVG(salary) as avarage_salary    
+FROM
+    departments d
+        JOIN
+    dept_manager dm ON d.dept_no = dm.dept_no
+        JOIN
+    salaries s ON dm.emp_no = s.emp_no
+    GROUP BY d.dept_name
+   -- HAVING avarage_salary > 60000
+    ORDER BY avarage_salary;
+
+-- How many male and how many female managers do we have in the ‘employees’ database?
+SELECT
+    e.gender, 
+    COUNT(e.gender),
+    dm.dept_no
+FROM 
+    employees e
+    JOIN
+    dept_manager dm ON e.emp_no = dm.emp_no
+GROUP BY e.gender;
+-- 
+SELECT
+    e.gender, 
+    COUNT(dm.emp_no)
+FROM
+    employees e
+        JOIN
+    dept_manager dm ON e.emp_no = dm.emp_no
+GROUP BY gender; 
+
+-- UNION vs UNION ALL
+DROP TABLE IF EXISTS employees_dup;
+CREATE TABLE
+    employees_dup
+    	(
+            emp_no INT(11), 
+            birth_date DATE, 
+            first_name varchar(16), 
+            last_name varchar(16), 
+            gender enum('M','F'), 
+            hire_date DATE
+        );
+
+INSERT INTO
+    employees_dup
+SELECT  e.*
+FROM
+    employees e LIMIT 50;
+
+SELECT * FROM employees_dup;
+INSERT INTO 
+    employees_duP 
+    VALUES('10001', '1964-09-12', 'Linda','Ochwada','F','1988-10-01' );
+
+
+-- 
+DROP TABLE IF EXISTS dept_manager_dup;
+
+CREATE TABLE dept_manager_dup (
+    emp_no INT(11), 
+    dept_no char(4),
+    from_date date,
+    to_date date
+);
+
+INSERT INTO 
+    dept_manager_dup 
+SELECT dm.*
+FROM dept_manager dm 
+LIMIT 20;
+--
+-- UNION ALL
+-- Used to combine a few SELECT statements in a single output
+--      MUST select same number of columns from each table 
+--      Columns have to be same, same order, contain related data type
+
+-- Add missing columns (employees_dup), dept_manager_dup
+SELECT * FROM dept_manager_dup LIMIT 10;
+
+SELECT
+    e.emp_no, 
+    e.first_name,
+    e.last_name,
+    NULL AS dept_no,
+    NULL AS from_date
+FROM
+    employees_dup e
+WHERE
+    e.emp_no = 10001
+UNION ALL
+    SELECT 
+        NULL AS emp_no, 
+        NULL AS first_name,
+        NULL AS last_name,
+        dmd.dept_no,
+        dmd.from_date
+FROM
+    dept_manager_dup dmd; -- 22 entry 
+-- 
+    SELECT
+    e.emp_no, 
+    e.first_name,
+    e.last_name,
+    NULL AS dept_no,
+    NULL AS from_date
+FROM
+    employees_dup e
+WHERE
+    e.emp_no = 10001
+UNION  -- difference
+    SELECT 
+        NULL AS emp_no, 
+        NULL AS first_name,
+        NULL AS last_name,
+        dmd.dept_no,
+        dmd.from_date
+FROM
+    dept_manager_dup dmd;
+
+-- When uniting two identically organised tables: 
+-- UNION. Dispay only distict values in the output; UNION ALL - All including duplicates
+
+--Go forward to the solution and execute the query. What do you think is the meaning of the minus sign before 
+--subset A in the last row (ORDER BY -a.emp_no DESC)?  
+
+SELECT * FROM
+    (SELECT
+        e.emp_no,
+        e.first_name,
+        e.last_name,
+        NULL AS dept_no,
+        NULL AS from_date
+    FROM
+        employees e
+    WHERE
+        last_name = 'Denis' UNION SELECT
+        NULL AS emp_no,
+            NULL AS first_name,
+            NULL AS last_name,
+            dm.dept_no,
+            dm.from_date
+    FROM
+        dept_manager dm) as a
+ORDER BY -a.emp_no DESC;
