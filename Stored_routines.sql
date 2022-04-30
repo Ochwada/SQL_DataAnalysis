@@ -95,3 +95,9 @@ SELECT EMP_INFO('Aruna', 'Journel');
 -- %%%%%%%%%%%%%%%%%%%%%% -------------------------------------%%%%%%%%%%%%%
 -- ADVANCE SQL Topic
 -- %%%%%%%%%%%%%%%%%%%%%% -------------------------------------%%%%%%%%%%%%%
+
+-- SCOPE (VISIBILITY): the region of a computer program where a phenomenon e.g. a variable
+-- 	is valid
+--  MySQL Variables --> Local,  Session, global 
+-- Local -- Variable visible only in the BEGIN - END block in which it was created.
+
